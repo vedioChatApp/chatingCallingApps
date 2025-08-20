@@ -49,6 +49,7 @@ const ForgotPasswordScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.overlayBackground}>
       <View style={styles.header}>
         <Text style={styles.title}>Forgot password</Text>
         <Text style={styles.subtitle}>Enter your email to reset the password</Text>
@@ -91,6 +92,7 @@ const ForgotPasswordScreen = () => {
           </Text>
         )}
       </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -101,10 +103,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1AC8B9',
-    justifyContent: 'center',
-    alignItems: 'center',
+  
     paddingHorizontal: scale(30),
   },
+   overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
   header: {
     marginBottom: scale(30),
   },
@@ -134,7 +145,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scale(-18),
     left: scale(15),
-    backgroundColor: '#1AC8B9',
+    // backgroundColor: '#1AC8B9',
     paddingHorizontal: scale(4),
     zIndex: 2,
   },

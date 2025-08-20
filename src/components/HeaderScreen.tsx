@@ -20,9 +20,9 @@ const HeaderScreen =  ({ onMenuPress }: { onMenuPress: () => void })=> {
               </View>
             </View>
           </View>
-          <View style={styles.bellWrapper}>
+          <TouchableOpacity style={styles.bellWrapper}>
             <Image source={require('../assets/bell.png')} style={styles.bellIcon} />
-          </View>
+          </TouchableOpacity>
         </View>
   )
 }

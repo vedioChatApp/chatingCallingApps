@@ -118,9 +118,11 @@ const UserchangePassword = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.overlayBackground} >
       <UserHeaderProfileScreen />
       <UserchangePasswordContain onContinuePress={() => setIsModalVisible(true)} />
       {renderProfileUpdateModal()}
+        </View>
     </SafeAreaView>
   );
 };
@@ -131,8 +133,17 @@ export default UserchangePassword;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#8AE6CE',
+    // backgroundColor: '#8AE6CE',
+      backgroundColor: '#1AC8B9',
   },
+  overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
   backButton: {
     width: scale(24),
     height: scale(24),

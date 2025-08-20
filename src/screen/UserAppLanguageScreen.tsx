@@ -99,7 +99,7 @@ const UserAppLanguageScreenMainContainer = () => {
 
                 <Text style={styles.selectedLanguageText}>{strings.UserAppLanguageScreen.allLanguages}</Text>
 
-            <View style={{backgroundColor:"red",height:"78%",
+            <View style={{height:"78%",
                 marginTop:scale(10)
             }}>
                 <FlatList
@@ -128,8 +128,10 @@ const UserAppLanguageScreenMainContainer = () => {
 const UserAppLanguageScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.overlayBackground}>
             <UserAppLanguageScreenHeader />
             <UserAppLanguageScreenMainContainer />
+            </View>
         </SafeAreaView>
     )
 }
@@ -142,6 +144,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#1AC8B9',
         //    backgroundColor: '#97E6D4',
     },
+        overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
     centerDataHeade: {
         marginHorizontal: scale(25)
     },

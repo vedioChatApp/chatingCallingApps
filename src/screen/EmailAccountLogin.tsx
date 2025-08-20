@@ -8,6 +8,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUser } from '../api/auth'; 
+import SocialLoginScreen from '../components/SocialLoginScreen';
 
 const LoginHeader = () => (
   <View style={styles.tittleHeader}>
@@ -147,22 +148,6 @@ function LoginScreen() {
   );
 }
 
-function SocialLogin() {
-  return (
-    <View style={styles.googleHeader}>
-      <TouchableOpacity>
-        <Image source={Images.Google} style={styles.google} />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image source={Images.Facbook} style={styles.google} />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image source={Images.Group} style={styles.google} />
-      </TouchableOpacity>
-    </View>
-  );
-}
-
 const EmailAccountLogin = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -170,7 +155,8 @@ const EmailAccountLogin = () => {
       <LoginHeader />
       <LoginFields />
       <LoginScreen />
-      <SocialLogin />
+        <SocialLoginScreen/>
+      {/* <SocialLogin /> */}
       </View>
     </SafeAreaView>
     
@@ -275,18 +261,6 @@ alignSelf:"center"
   floatingInputContainer: {
 //  marginHorizontal: scale(40),
     // marginTop: scale(10),
-  },
-  google: {
-    width: scale(50),
-    height: scale(50),
-    resizeMode: "contain",
-  },
-  googleHeader: {
-    flexDirection: "row",
-    width: "45%",
-    alignSelf: "center",
-    justifyContent: "space-between",
-    marginTop: "10%"
   },
    dividerContainer: {
       flexDirection: 'row',

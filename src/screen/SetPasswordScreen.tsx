@@ -238,6 +238,7 @@ const SetPasswordScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.overlayBackground}>
       <View>
         <Header />
         <SetPasswordFields
@@ -273,6 +274,7 @@ const SetPasswordScreen = () => {
           </View>
         </View>
       </Modal>
+      </View>
     </SafeAreaView>
   );
 };
@@ -314,7 +316,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scale(-8),
     left: scale(15),
-    backgroundColor: '#1AC8B9',
+    // backgroundColor: '#1AC8B9',
     paddingHorizontal: scale(4),
     fontSize: scale(13),
     color: '#3F897B',
@@ -487,4 +489,12 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     fontWeight: '600',
   },
+  overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+}
 });

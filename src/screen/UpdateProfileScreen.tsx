@@ -116,9 +116,11 @@ const FooterNav: React.FC = () => {
 const UpdateProfileScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
+        <View style={styles.overlayBackground}>
       <UpdateProfileHeader />
       <ProfilePictureUpload />
       <FooterNav />
+      </View>
     </SafeAreaView>
   );
 };
@@ -219,4 +221,12 @@ const styles = StyleSheet.create({
     height: scale(80),
     resizeMode: 'contain',
   },
+    overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+}
 });

@@ -103,6 +103,7 @@ const OTPScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.overlayBackground} >
       <View style={styles.header}>
         <Text style={styles.email}>{strings.OTPScreen.title}</Text>
         <Text style={styles.subtitle}>We sent a reset link to {email}</Text>
@@ -113,13 +114,7 @@ const OTPScreen = () => {
           {otp.map((val, index) => (
             <View
               key={index}
-              style={[
-                styles.firstContainer,
-                {
-                  borderColor: otp[index] ? 'teal' : '#ccc',
-                  borderWidth: otp[index] ? 1 : 1.5,
-                },
-              ]}
+              style={styles.firstContainer}
             >
               <TextInput
                 autoFocus={index === 0}
@@ -174,6 +169,7 @@ const OTPScreen = () => {
           </View>
         </View>
       )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -184,12 +180,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1AC8B9',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
+    overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+   justifyContent: 'center',
+    alignItems: 'center',
+},
   header: {
     alignItems: 'center',
     marginBottom: scale(20),
+    justifyContent: 'center',
   },
   email: {
     fontSize: scale(20),
@@ -212,21 +219,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  firstContainer: {
-    width: scale(45),
-    height: scale(50),
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: scale(5),
-  },
-  placeholderText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000',
-    textAlign: 'center',
-    width: '100%',
-  },
+  firstContainer: { width: scale(45), height: scale(50), borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginHorizontal: scale(5),
+    borderColor:"#FFFFFF",   backgroundColor: '#FFFFFF57',borderWidth:scale(2)
+   },
+   placeholderText: { fontSize: 20, fontWeight: '600', color: '#000', textAlign: 'center', width: '100%' ,},
   errorText: {
     color: 'red',
     fontSize: scale(12),

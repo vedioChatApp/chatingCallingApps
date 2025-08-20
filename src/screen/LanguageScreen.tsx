@@ -72,6 +72,7 @@ const LanguageScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+         <View style={styles.overlayBackground}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={styles.topWrapper}>
           <TouchableOpacity style={styles.skipContainer} onPress={handleNext}>
@@ -159,6 +160,7 @@ const LanguageScreen = () => {
         <TouchableOpacity style={styles.circleButtonActive} onPress={handleNext}>
           <Image source={Images.buttonRight} style={styles.logoStyleOne} />
         </TouchableOpacity>
+      </View>
       </View>
     </SafeAreaView>
   );
@@ -316,5 +318,13 @@ const styles = StyleSheet.create({
     dots: { flexDirection: 'row', alignItems: 'center' },
     dot: { width: scale(8), height: scale(8), borderRadius: scale(4), backgroundColor: '#B0E1DA', marginHorizontal: scale(4) },
     dotActive: { width: scale(8), height: scale(8), borderRadius: scale(4), backgroundColor: '#FFFFFF', marginHorizontal: scale(4) },
-    logoStyleOne: { width: scale(80), height: scale(80), resizeMode: 'contain' }
+    logoStyleOne: { width: scale(80), height: scale(80), resizeMode: 'contain' },
+      overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+}
 });

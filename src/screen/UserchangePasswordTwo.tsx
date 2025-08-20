@@ -165,9 +165,11 @@ const UserchangePasswordTwo = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.overlayBackground}>
       <UserHeaderProfileScreen />
       {renderProfileUpdateModal()}
       <UserchangePasswordTwoOTP setIsModalVisible={setIsModalVisible} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -176,7 +178,18 @@ export default UserchangePasswordTwo;
 
 // styles remain unchanged
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#8AE6CE' },
+  container: { flex: 1,
+    //  backgroundColor: '#8AE6CE'
+      backgroundColor: '#1AC8B9',
+     },
+    overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
   backButton: { width: scale(24), height: scale(24), resizeMode: 'contain' },
   personText: { fontSize: scale(18), fontWeight: '600', color: '#00604D', marginLeft: scale(20) },
   personalDetailsHeader: { flexDirection: 'row', alignItems: 'center', marginHorizontal: scale(25), marginTop: scale(20) },

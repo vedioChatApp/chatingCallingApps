@@ -13,12 +13,13 @@ import {
 } from 'react-native';
 import scale from '../components/Scale';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // ✅ added
 
 const { width } = Dimensions.get('window');
 
 const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: () => void }) => {
   const slideAnim = useRef(new Animated.Value(-width)).current;
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (visible) {
@@ -35,6 +36,20 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
       }).start();
     }
   }, [visible]);
+
+  // ✅ Logout handler (token remove + drawer close + reset to EmailAccountLogin)
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('access_token');
+    } catch (e) {
+      // optional: console.log('logout error', e);
+    }
+    onClose();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'EmailAccountLogin' as never }],
+    });
+  };
 
   // ✅ Updated MenuItem to accept onPress
   const MenuItem = ({ icon, text, onPress }: { icon: any; text: string; onPress?: () => void }) => {
@@ -71,7 +86,7 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
           <View style={styles.header}>
             <Image source={require('../assets/DummyLogo.png')} style={styles.avatar} />
             <Text style={styles.name}>Suraiya Parvin</Text>
-            <View style={{ marginLeft: "28%" }}>
+            <View style={{ marginLeft: '28%' }}>
               <View style={styles.editHeader}>
                 <Text style={styles.email}>suraiya@gmail.com</Text>
                 <TouchableOpacity>
@@ -104,20 +119,24 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
               text="Profile"
               onPress={() => {
                 onClose();
-                navigation.navigate('UserProfileScreen' as never); // Type assertion
+                navigation.navigate('UserProfileScreen' as never);
               }}
             />
 
-            <MenuItem icon={require('../assets/Following.png')} text="Following"
-             onPress={() => {
+            <MenuItem
+              icon={require('../assets/Following.png')}
+              text="Following"
+              onPress={() => {
                 onClose();
-                navigation.navigate('UserFollowingScreen' as never); // Type assertion
+                navigation.navigate('UserFollowingScreen' as never);
               }}
             />
-            <MenuItem icon={require('../assets/Topup.png')} text="Top up"
-             onPress={() => {
+            <MenuItem
+              icon={require('../assets/Topup.png')}
+              text="Top up"
+              onPress={() => {
                 onClose();
-                navigation.navigate('UserTopUpScreen' as never); // Type assertion
+                navigation.navigate('UserTopUpScreen' as never);
               }}
             />
             <MenuItem icon={require('../assets/Transaction.png')} text="Transaction history" />
@@ -128,19 +147,22 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
               text="Settings"
               onPress={() => {
                 onClose();
-                navigation.navigate('SettingsScreen' as never); // Type assertion
+                navigation.navigate('SettingsScreen' as never);
               }}
             />
 
-            <MenuItem icon={require('../assets/Help.png')} text="Help" 
-             onPress={() => {
+            <MenuItem
+              icon={require('../assets/Help.png')}
+              text="Help"
+              onPress={() => {
                 onClose();
-                navigation.navigate('UserHelpScreen' as never); // Type assertion
-              }}/>
+                navigation.navigate('UserHelpScreen' as never);
+              }}
+            />
           </ScrollView>
 
           {/* Logout */}
-          <TouchableOpacity style={styles.logoutBtn}>
+          <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
             <View style={{ alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}>
               <Image source={require('../assets/logout.png')} style={styles.profileIcon} />
               <Text style={styles.logoutText}>Log out</Text>
@@ -153,7 +175,6 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
 };
 
 export default CustomDrawerModal;
-
 
 const styles = StyleSheet.create({
   backdrop: {
@@ -177,11 +198,9 @@ const styles = StyleSheet.create({
     fontSize: scale(22),
     fontWeight: 'bold',
     color: '#333',
-    marginTop: scale(15),
     marginRight: scale(25),
   },
   header: {
-    // alignItems: 'center',
     marginBottom: scale(20),
   },
   avatar: {
@@ -189,26 +208,26 @@ const styles = StyleSheet.create({
     height: scale(80),
     borderRadius: scale(40),
     marginBottom: scale(10),
-     alignSelf: 'center',
+    alignSelf: 'center',
   },
   name: {
     fontWeight: '800',
     fontSize: scale(20),
     color: '#00604D',
-      alignSelf: 'center',
+    alignSelf: 'center',
   },
   email: {
     fontSize: scale(12),
     color: '#7EABA2C4',
     fontWeight: '500',
-    marginVertical:scale(5)
+    marginVertical: scale(5),
   },
   walletContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-      alignSelf: 'center',
+    alignSelf: 'center',
   },
-    walletContainers: {
+  walletContainers: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -218,11 +237,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginRight: scale(5),
   },
-  editIcon:{
+  editIcon: {
     width: scale(24),
     height: scale(24),
     resizeMode: 'contain',
-        marginLeft:"25%",
+    marginLeft: '25%',
   },
   walletText: {
     fontSize: scale(14),
@@ -292,11 +311,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: scale(14),
   },
-  editHeader:{
-    flexDirection:"row",
-    alignItems:"center",
-    width:"50%",
-    marginLeft:scale(20)
+  editHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '50%',
+    marginLeft: scale(20),
   },
-  
 });

@@ -108,8 +108,10 @@ const UserFollowingScreenMainData = () => {
 const UserFollowingScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.overlayBackground} >
             <UserFollowingScreenHeader />
             <UserFollowingScreenMainData />
+            </View>
         </SafeAreaView>
     )
 }
@@ -121,6 +123,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#1AC8B9',
     },
+          overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
     personalDetailsHeader: {
         flexDirection: 'row',
         alignItems: 'center',

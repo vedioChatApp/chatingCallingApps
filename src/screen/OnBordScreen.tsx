@@ -6,6 +6,7 @@ import scale from '../components/Scale';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import Scale from '../components/Scale';
+import SocialLoginScreen from '../components/SocialLoginScreen';
 
 const SplashHeader = () => {
   return (
@@ -59,38 +60,15 @@ const SocialLogin = () => {
   );
 };
 
-const SocialLoginButtons = () => {
-  return (
-    <View style={styles.googleHeader}>
-      <TouchableOpacity>
-        <Image
-          source={Images.Google}
-          style={styles.google}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image
-          source={Images.Facbook}
-          style={styles.google}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image
-          source={Images.Group}
-          style={styles.google}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 const Splash = () => {
   return (
     <View style={styles.container}>
+      <View style={styles.overlayBackground}>
       <SplashHeader />
       <SplasForm />
       <SocialLogin />
-      <SocialLoginButtons />
+      <SocialLoginScreen/>
+      </View>
     </View>
   );
 };
@@ -100,10 +78,16 @@ export default Splash;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#00BF9A',
      backgroundColor: '#1AC8B9',
-    // opacity: 0.6,
   },
+  overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
   logoStyle: {
     width: '105%',
     height: undefined,
@@ -113,7 +97,7 @@ const styles = StyleSheet.create({
 
   logoHeader: {
     marginHorizontal: scale(20),
-    marginTop: "12%"
+    // marginTop: "12%"
   },
   formHeader: {
     width: "85%",
@@ -175,16 +159,4 @@ const styles = StyleSheet.create({
     width: Scale(132),
     height: Scale(3),
   },
-  google: {
-    width: scale(50),
-    height: scale(50),
-    resizeMode: "contain",
-  },
-  googleHeader: {
-    flexDirection: "row",
-    width: "45%",
-    alignSelf: "center",
-    justifyContent: "space-between",
-    marginTop: "10%"
-  }
 });
