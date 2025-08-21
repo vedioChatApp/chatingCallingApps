@@ -32,8 +32,10 @@ import UserFollowingScreen from '../screen/UserFollowingScreen';
 import UserProfileScreen from '../screen/UserProfileScreen';
 import UserPersonalDetails from '../screen/UserPersonalDetails';
 import UserAboutMeScreen from '../screen/UserAboutMeScreen';
-// import UserAboutMeScreen from '../screen/UserAboutMeScreen';
+import UserTransactionHistory from '../screen/UserTransactionHistory';
 import UserTopUpScreen from '../screen/UserTopUpScreen';
+
+
 
 import scale from '../components/Scale';
 import { RootStackParamList } from './StackNavigator';
@@ -76,6 +78,7 @@ export type HomeStackParamList = {
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
   UserAppLanguageScreen: undefined;
+  UserTransactionHistory: undefined;
 };
 
 // 👇 Call stack param list
@@ -95,6 +98,7 @@ export type CallStackParamList = {
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
   UserAppLanguageScreen: undefined;
+  UserTransactionHistory: undefined;
 };
 
 // 👇 VideoCall stack param list
@@ -114,6 +118,7 @@ export type VideoCallStackParamList = {
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
   UserAppLanguageScreen: undefined;
+  UserTransactionHistory: undefined;
 };
 
 // 👇 Chat stack param list (hidden tab opened via FAB)
@@ -133,6 +138,7 @@ export type ChatStackParamList = {
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
   UserAppLanguageScreen: undefined;
+  UserTransactionHistory: undefined;
 };
 
 // -------------------- Navigators --------------------
@@ -208,6 +214,7 @@ const HomeStack = () => {
                             <HomeStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
                               <HomeStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
                                 <HomeStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <HomeStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
     </HomeStackNav.Navigator>
   );
 };
@@ -232,6 +239,7 @@ const CallStack = () => {
                                  <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
                                   <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
                                    <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <CallStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </CallStackNav.Navigator>
   );
@@ -257,6 +265,7 @@ const VideoCallStack = () => {
                 <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
                   <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
                     <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+                    <CallStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </VideoCallStackNav.Navigator>
   );
@@ -279,6 +288,7 @@ const ChatStack = () => {
                 <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
                  <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
                   <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <ChatStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </ChatStackNav.Navigator>
   );
@@ -420,7 +430,7 @@ export default BottomTabs;
 const styles = StyleSheet.create({
   tabBarContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom:scale(0),
     width: '100%',
     height: Platform.OS === 'ios' ? scale(100) : scale(90),
     alignItems: 'center',
@@ -454,15 +464,15 @@ const styles = StyleSheet.create({
   },
   fabButton: {
     position: 'absolute',
-    top: -scale(32),
+    top: -scale(25),
     alignSelf: 'center',
     zIndex: 10,
   },
   fabOuterCircle: {
-    width: scale(66),
-    height: scale(66),
-    borderRadius: scale(33),
-    backgroundColor: '#004D40',
+    width: scale(64),
+    height: scale(64),
+    borderRadius: scale(32),
+    backgroundColor: '#00604D',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 4,

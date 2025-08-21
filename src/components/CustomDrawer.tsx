@@ -10,10 +10,12 @@ import {
   ScrollView,
   Dimensions,
   Pressable,
+  Share,
 } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import scale from '../components/Scale';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // ✅ added
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
@@ -23,38 +25,37 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
 
   useEffect(() => {
     if (visible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+      Animated.timing(slideAnim, { toValue: 0, duration: 300, useNativeDriver: true }).start();
     } else {
-      Animated.timing(slideAnim, {
-        toValue: -width,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+      Animated.timing(slideAnim, { toValue: -width, duration: 300, useNativeDriver: true }).start();
     }
   }, [visible]);
 
-  // ✅ Logout handler (token remove + drawer close + reset to EmailAccountLogin)
+  // Logout
   const handleLogout = async () => {
-    try {
-      await AsyncStorage.removeItem('access_token');
-    } catch (e) {
-      // optional: console.log('logout error', e);
-    }
+    try { await AsyncStorage.removeItem('access_token'); } catch {}
     onClose();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'EmailAccountLogin' as never }],
-    });
+    navigation.reset({ index: 0, routes: [{ name: 'EmailAccountLogin' as never }] });
   };
 
-  // ✅ Updated MenuItem to accept onPress
+  // --- Invite/Code section helpers ---
+  const REF_CODE = 'DFSD#$$%4';
+
+  const handleCopy = () => {
+    Clipboard.setString(REF_CODE);
+  };
+
+  const handleShare = async () => {
+    try {
+      await Share.share({
+        message: `Use my code ${REF_CODE} to join!`,
+      });
+    } catch {}
+  };
+
+  // Menu item
   const MenuItem = ({ icon, text, onPress }: { icon: any; text: string; onPress?: () => void }) => {
     const [pressed, setPressed] = useState(false);
-
     return (
       <Pressable
         onPress={onPress}
@@ -86,7 +87,7 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
           <View style={styles.header}>
             <Image source={require('../assets/DummyLogo.png')} style={styles.avatar} />
             <Text style={styles.name}>Suraiya Parvin</Text>
-            <View style={{ marginLeft: '28%' }}>
+            <View style={{ marginLeft: '30%' }}>
               <View style={styles.editHeader}>
                 <Text style={styles.email}>suraiya@gmail.com</Text>
                 <TouchableOpacity>
@@ -113,7 +114,7 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
           </View>
 
           {/* Menu Items */}
-          <ScrollView style={styles.menuContainer}>
+          <View style={styles.menuContainer}>
             <MenuItem
               icon={require('../assets/ProfileIcon.png')}
               text="Profile"
@@ -139,9 +140,13 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
                 navigation.navigate('UserTopUpScreen' as never);
               }}
             />
-            <MenuItem icon={require('../assets/Transaction.png')} text="Transaction history" />
+            <MenuItem
+              onPress={() => {
+                onClose();
+                navigation.navigate('UserTransactionHistory' as never);
+              }}
+            icon={require('../assets/Transaction.png')} text="Transaction history" />
 
-            {/* ✅ Settings Navigation */}
             <MenuItem
               icon={require('../assets/Settingses.png')}
               text="Settings"
@@ -159,12 +164,29 @@ const CustomDrawerModal = ({ visible, onClose }: { visible: boolean; onClose: ()
                 navigation.navigate('UserHelpScreen' as never);
               }}
             />
-          </ScrollView>
+
+            {/* ---------- Invite / Code + Share (matches your screenshot) ---------- */}
+            <View style={styles.inviteRow}>
+              <View style={styles.codeBox}>
+                <Text style={styles.codeText} numberOfLines={1}>
+                  {REF_CODE}
+                </Text>
+                <TouchableOpacity onPress={handleCopy} >
+                  <Image source={require('../assets/proiconscopy.png')} style={styles.copyIcon} />
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity style={styles.shareBtn} onPress={handleShare} activeOpacity={0.85}>
+                <Text style={styles.shareText}>SHARE</Text>
+              </TouchableOpacity>
+            </View>
+            {/* -------------------------------------------------------------------- */}
+          </View>
 
           {/* Logout */}
           <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
             <View style={{ alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}>
-              <Image source={require('../assets/logout.png')} style={styles.profileIcon} />
+              <Image source={require('../assets/logout.png')} style={styles.profileIcons} />
               <Text style={styles.logoutText}>Log out</Text>
             </View>
           </TouchableOpacity>
@@ -187,21 +209,22 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: '85%',
-    backgroundColor: '#E7FFFB',
-    paddingTop: scale(40),
+    backgroundColor: '#FFFFFF',
+    // paddingTop: scale(40),
   },
   closeWrapper: {
     alignItems: 'flex-end',
     marginBottom: scale(10),
   },
   closeText: {
-    fontSize: scale(22),
-    fontWeight: 'bold',
+    fontSize: scale(18),
+    fontWeight: '400',
     color: '#333',
-    marginRight: scale(25),
+    marginRight: scale(20),
+    marginTop: scale(15),
   },
   header: {
-    marginBottom: scale(20),
+    marginBottom: scale(10),
   },
   avatar: {
     width: scale(80),
@@ -209,7 +232,10 @@ const styles = StyleSheet.create({
     borderRadius: scale(40),
     marginBottom: scale(10),
     alignSelf: 'center',
+        borderColor:"#00604D59",
+    borderWidth: scale(1),
   },
+
   name: {
     fontWeight: '800',
     fontSize: scale(20),
@@ -220,7 +246,7 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     color: '#7EABA2C4',
     fontWeight: '500',
-    marginVertical: scale(5),
+    marginBottom: scale(5),
   },
   walletContainer: {
     flexDirection: 'row',
@@ -238,19 +264,22 @@ const styles = StyleSheet.create({
     marginRight: scale(5),
   },
   editIcon: {
-    width: scale(24),
-    height: scale(24),
+    width: scale(20),
+    height: scale(20),
     resizeMode: 'contain',
-    marginLeft: '25%',
+    marginLeft: '30%',
+    position: 'relative',
+    top: scale(-8),
   },
   walletText: {
-    fontSize: scale(14),
-    color: '#27AE60',
+    fontSize: scale(12),
+
+    color: '#004739',
+    fontWeight: '600',
   },
   levelSection: {
     backgroundColor: '#ACFFEF66',
     padding: scale(15),
-    marginVertical: scale(10),
   },
   level: {
     fontWeight: '600',
@@ -259,7 +288,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
   progressBar: {
-    backgroundColor: '#EEE',
+    backgroundColor: '#FFFFFF',
     height: scale(6),
     borderRadius: scale(3),
     marginVertical: scale(6),
@@ -281,9 +310,7 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
   },
   menuItem: {
-    paddingVertical: scale(14),
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEE',
+    paddingVertical: scale(10),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -292,29 +319,91 @@ const styles = StyleSheet.create({
     height: scale(20),
     resizeMode: 'contain',
     marginRight: scale(10),
-    marginLeft: scale(20),
+    marginLeft: scale(25),
   },
+
+    profileIcons: {
+    width: scale(20),
+    height: scale(20),
+    resizeMode: 'contain',
+   
+  },
+
   menuText: {
     fontSize: scale(18),
     color: '#00604D',
     fontWeight: '500',
+    marginLeft: scale(15),
   },
+
+  // ===== Invite / Share section (new) =====
+  inviteRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: scale(20),
+    paddingTop: scale(16),
+    paddingBottom: scale(6),
+marginTop: "25%",
+  },
+  codeBox: {
+    flex: 1,
+    height: scale(48),
+    backgroundColor: '#FFFFFF',     // solid (no transparency)
+    borderRadius: scale(24),
+    borderWidth: scale(1),
+    borderColor: '#00604D',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: scale(16),
+  },
+  codeText: {
+    flex: 1,
+    color: '#00604D',
+    fontSize: scale(14),
+    fontWeight: '600',
+  },
+  copyIcon: {
+    width: scale(18),
+    height: scale(18),
+    resizeMode: 'contain',
+  },
+  shareBtn: {
+    marginLeft: scale(12),
+    paddingHorizontal: scale(12),
+    paddingVertical: scale(15),
+    backgroundColor: '#00604D',
+    borderRadius: scale(999),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shareText: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+    fontSize: scale(14),
+    letterSpacing: 1,
+  },
+  // ===== /Invite / Share section =====
+
   logoutBtn: {
-    marginTop: scale(20),
     paddingVertical: scale(30),
     borderTopWidth: 1,
     borderTopColor: '#CCC',
     backgroundColor: '#00604D',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
   logoutText: {
     color: '#FFFF',
     fontWeight: '600',
     fontSize: scale(14),
+     marginLeft: scale(10),
   },
   editHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '50%',
+    // // width: '50%',
     marginLeft: scale(20),
+    
   },
 });

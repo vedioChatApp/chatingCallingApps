@@ -38,7 +38,10 @@ const strings = {
       skip:"Skip"
   },
   ForgotPasswordScreen:{
-resetPassword:"Reset Password"
+resetPassword:"Reset Password",
+forgotpassword:"Forgot password",
+subtitle: 'Enter your email to reset the password',
+email:"Enter your email*"
   },
   SetNewPasswordHeaderText:{
     title:"Set New password",
@@ -138,6 +141,14 @@ UserTopUpScreen:{
   topup:"Topup",
   totalBalance:"Total Balance",
   totalExpense:"Total Expense"
+},
+UserTransactionHistory:{
+  transactionHistory:"Transaction History",
+ totalBalance:"Total Balance",
+  totalExpense:"Total Expense",
+  allTransactions:"All Transactions",
+  searchTransaction:"Search Transaction",
+  spentHistory:"Spent History",
 }
 
 };

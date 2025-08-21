@@ -90,8 +90,8 @@ const UserReferandEarnMainContainer = () => {
           </TouchableOpacity>
         </View>
 
-        {/* REFER -> open bottom sheet */}
-        <TouchableOpacity style={styles.reffHeder} onPress={openSheet} activeOpacity={0.9}>
+        {/* REFER -> open native share (requested) */}
+        <TouchableOpacity style={styles.reffHeder} onPress={shareGeneric} activeOpacity={0.9}>
           <Text style={styles.reffText}>{strings.UserReferandEarn.rEFER}</Text>
         </TouchableOpacity>
       </View>
@@ -171,8 +171,8 @@ const UserReferandEarn = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.overlayBackground} >
-      <UserReferandEarnHeader />
-      <UserReferandEarnMainContainer />
+        <UserReferandEarnHeader />
+        <UserReferandEarnMainContainer />
       </View> 
     </SafeAreaView>
   )
@@ -185,14 +185,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1AC8B9',
   },
-    overlayBackground: {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(255, 255, 255, 0.44)',
-},
+  overlayBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.44)',
+  },
   centerDataHeade: {
     marginHorizontal: scale(15)
   },

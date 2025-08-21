@@ -51,12 +51,12 @@ const ForgotPasswordScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.overlayBackground}>
       <View style={styles.header}>
-        <Text style={styles.title}>Forgot password</Text>
-        <Text style={styles.subtitle}>Enter your email to reset the password</Text>
+        <Text style={styles.title}>{strings.ForgotPasswordScreen.forgotpassword}</Text>
+        <Text style={styles.subtitle}>{strings.ForgotPasswordScreen.subtitle}</Text>
       </View>
 
       <View style={styles.inputWrapper}>
-        {showLabel && <Text style={styles.label}>Enter your email*</Text>}
+        {showLabel && <Text style={styles.label}>{strings.ForgotPasswordScreen.email}</Text>}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -131,9 +131,11 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     fontWeight: '500',
     textAlign: 'center',
+    lineHeight: scale(59),
+    letterSpacing: scale(0),
   },
   inputWrapper: {
-    width: '87%',
+    width: '100%',
     position: 'relative',
   },
   label: {
