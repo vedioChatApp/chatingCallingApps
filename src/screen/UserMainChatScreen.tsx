@@ -16,7 +16,7 @@ import scale from '../components/Scale';
 import React, { useState, useEffect } from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/StackNavigator';
-// import Voice from '@react-native-voice/voice';
+import Voice from '@react-native-voice/voice';
 
 const UserMainChatScreenHeader = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -51,16 +51,16 @@ const UserMainChatScreenCurveScreen = () => {
   const [showAttachmentModal, setShowAttachmentModal] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
 
-  // useEffect(() => {
-  //   Voice.onSpeechResults = onSpeechResults;
-  //   Voice.onSpeechError = e => {
-  //     console.log('Voice Error:', e);
-  //     setIsRecording(false);
-  //   };
-  //   return () => {
-  //     Voice.destroy().then(Voice.removeAllListeners);
-  //   };
-  // }, []);
+  useEffect(() => {
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechError = e => {
+      console.log('Voice Error:', e);
+      setIsRecording(false);
+    };
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
 
   const onSpeechResults = (e: any) => {
     if (e.value && e.value.length > 0) {
@@ -69,31 +69,31 @@ const UserMainChatScreenCurveScreen = () => {
     }
   };
 
-  // const handleMicPress = async () => {
-  //   try {
-  //     if (isRecording) {
-  //       await Voice.stop();
-  //       setIsRecording(false);
-  //       return;
-  //     }
+  const handleMicPress = async () => {
+    try {
+      if (isRecording) {
+        await Voice.stop();
+        setIsRecording(false);
+        return;
+      }
 
-  //     if (Platform.OS === 'android') {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO
-  //       );
-  //       if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-  //         console.warn('🎙️ Microphone permission denied');
-  //         return;
-  //       }
-  //     }
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO
+        );
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          console.warn('🎙️ Microphone permission denied');
+          return;
+        }
+      }
 
-  //     await Voice.start('en-US');
-  //     setIsRecording(true);
-  //   } catch (e) {
-  //     console.log('Voice Start Error:', e);
-  //     setIsRecording(false);
-  //   }
-  // };
+      await Voice.start('en-US');
+      setIsRecording(true);
+    } catch (e) {
+      console.log('Voice Start Error:', e);
+      setIsRecording(false);
+    }
+  };
 
   const sendMessage = () => {
     if (message.trim()) {
