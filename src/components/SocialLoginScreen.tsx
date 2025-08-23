@@ -2,12 +2,15 @@ import React, { useCallback, useEffect } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import scale from './Scale';
 
-// ✅ Google Sign-In (minimal additions)
+// ✅ Google Sign-In
 import {
   GoogleSignin,
   isSuccessResponse,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+
+// ✅ Facebook Login
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 type Props = {
   onGooglePress?: () => void;
@@ -24,7 +27,7 @@ const SocialLoginScreen: React.FC<Props> = ({
   onFacebookPress,
   onGroupPress,
 }) => {
-  // Configure once
+  // Configure once (Google)
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: WEB_CLIENT_ID,
@@ -32,7 +35,7 @@ const SocialLoginScreen: React.FC<Props> = ({
     });
   }, []);
 
-  // Default Google handler (used only if onGooglePress not provided)
+  // Default Google handler
   const handleGooglePress = useCallback(async () => {
     try {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
@@ -56,33 +59,51 @@ const SocialLoginScreen: React.FC<Props> = ({
     }
   }, []);
 
+  // ✅ Default Facebook handler
+  const handleFacebookPress = useCallback(async () => {
+    try {
+      // open native FB login
+      const res = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      if (res.isCancelled) {
+        console.log('Facebook login cancelled');
+        return;
+      }
+
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) throw new Error('No access token from Facebook');
+
+      // OPTIONAL: basic profile fetch (name/email/photo)
+      const url = `https://graph.facebook.com/v19.0/me?fields=id,name,email,picture.type(large)&access_token=${data.accessToken.toString()}`;
+      const r = await fetch(url);
+      const fbUser = await r.json();
+
+      console.log('Facebook OK:', { accessToken: data.accessToken.toString(), user: fbUser });
+      Alert.alert('Facebook Login', `Welcome ${fbUser?.name || 'User'}!`);
+    } catch (e: any) {
+      console.warn('Facebook login error:', e);
+      Alert.alert('Error', e?.message || 'Facebook login failed');
+    }
+  }, []);
+
   return (
     <View style={styles.googleHeader}>
       <TouchableOpacity onPress={onGooglePress ?? handleGooglePress}>
-        <Image
-          source={require('../assets/Google.png')}
-          style={styles.google}
-        />
+        <Image source={require('../assets/Google.png')} style={styles.google} />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={onFacebookPress}>
+      <TouchableOpacity onPress={onFacebookPress ?? handleFacebookPress}>
         <Image
-          source={require('../assets/Facbook.png')} // NOTE: if filename actually "Facebook.png", update path
+          source={require('../assets/Facbook.png')} // NOTE: agar file "Facebook.png" ho to yahan path update karein
           style={styles.google}
         />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={onGroupPress}>
-        <Image
-          source={require('../assets/Group.png')}
-          style={styles.google}
-        />
+        <Image source={require('../assets/Group.png')} style={styles.google} />
       </TouchableOpacity>
-         <TouchableOpacity onPress={onGroupPress}>
-        <Image
-          source={require('../assets/instagram.png')}
-          style={styles.google}
-        />
+
+      <TouchableOpacity onPress={onGroupPress}>
+        <Image source={require('../assets/instagram.png')} style={styles.google} />
       </TouchableOpacity>
     </View>
   );

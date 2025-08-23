@@ -8,28 +8,65 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+# Pods को static frameworks की तरह लिंक करें
+use_frameworks! :linkage => :static
 
 target 'chatingCallingApp' do
   config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    # Reanimated/AsyncStorage आदि के लिए New Arch ON
+    :new_arch_enabled => true
   )
 
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    # RN के default post-install fixes
     react_native_post_install(
       installer,
       config[:reactNativePath],
-      :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
+      :mac_catalyst_enabled => false
     )
+
+    # 🔧 Global build settings (non-modular includes allow + iOS 13)
+    installer.pods_project.targets.each do |t|
+      t.build_configurations.each do |bc|
+        bc.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+        bc.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+        bc.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+        # ✅ C++20 चाहिए क्योंकि code .contains() यूज़ करता है
+        bc.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'gnu++20' # fallback: 'gnu++2a'
+        # Swift version default
+        bc.build_settings['SWIFT_VERSION'] = '5.0'
+      end
+    end
+
+    # 🧩 कुछ pods को module define करें (headers resolve में मदद)
+    %w[
+      RNScreens
+      react_renderer_core
+      React-RCTFabric
+      React-Fabric
+      React-debug
+      React-utils
+      React-runtimescheduler
+      React-rendererdebug
+      React-rendererconsistency
+      React-runtimeexecutor
+      React-perflogger
+      React-hermes
+      React-jsi
+      React-jsiexecutor
+      React-jsinspector
+      Yoga
+      RCT-Folly
+    ].each do |name|
+      target = installer.pods_project.targets.find { |t| t.name == name }
+      next unless target
+      target.build_configurations.each do |bc|
+        bc.build_settings['DEFINES_MODULE'] = 'YES'
+      end
+    end
   end
 end

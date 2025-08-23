@@ -148,7 +148,7 @@ const UserMainChatScreenCurveScreen = () => {
 
           <TouchableOpacity
             style={styles.inputRightButton}
-            // onPress={message.trim() ? sendMessage : handleMicPress}
+            onPress={message.trim() ? sendMessage : handleMicPress}
           >
             <Image
               source={
