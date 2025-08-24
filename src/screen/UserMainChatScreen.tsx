@@ -17,6 +17,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import Voice from '@react-native-voice/voice';
+import HeaderScreen from '../components/HeaderScreen';
+import CustomDrawerModal from '../components/CustomDrawer';
 
 const UserMainChatScreenHeader = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -200,16 +202,22 @@ const UserMainChatScreenCurveScreen = () => {
   );
 };
 
-const UserMainChatScreen = () => (
+const UserMainChatScreen = () => {
+     const [isToggleOn, setIsToggleOn] = useState(false);
+              const [drawerVisible, setDrawerVisible] = useState(false);
+  return(
+    <>    
   <SafeAreaView style={styles.container}>
     <View style={styles.overlayBackground}>
-    <UserMainChatScreenHeader />
+      <HeaderScreen onMenuPress={() => setDrawerVisible(true)} />
+   <CustomDrawerModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
+    {/* <UserMainChatScreenHeader /> */}
     <UserMainChatScreenCurveScreen />
     </View>
-    {/* <UserMainChatScreenHeader /> */}
-    {/* <UserMainChatScreenCurveScreen /> */}
   </SafeAreaView>
-);
+    </>
+  )
+}
 
 export default UserMainChatScreen;
 
@@ -281,7 +289,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flex: 1,
-    marginTop: scale(20),
+    // marginTop: scale(20),
     borderTopRightRadius: scale(50),
     borderTopLeftRadius: scale(50),
     backgroundColor: '#B2F3ED',
@@ -317,7 +325,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 4,
     position: 'absolute',
-    bottom: scale(10),
+    bottom: scale(120),
     left: 0,
     right: 0,
   },

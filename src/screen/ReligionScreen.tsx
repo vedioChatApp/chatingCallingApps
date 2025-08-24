@@ -66,6 +66,7 @@ const ReligionScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+       <View style={styles.overlayBackground}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={styles.topWrapper}>
           <TouchableOpacity style={styles.skipContainer} onPress={() => navigation.navigate('LanguageScreen')}>
@@ -77,7 +78,7 @@ const ReligionScreen = () => {
         </View>
 
         <View style={styles.middleWrapper}>
-          <TouchableOpacity>
+          <TouchableOpacity   onPress={() => navigation.goBack()}>
             <Image source={Images.LeftArrow} style={styles.arrowIcon} />
           </TouchableOpacity>
 
@@ -150,6 +151,7 @@ const ReligionScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('LanguageScreen')}>
           <Image source={Images.buttonRight} style={styles.logoStyleOne}/>
         </TouchableOpacity>
+      </View>
       </View>
     </SafeAreaView>
   );
@@ -224,4 +226,12 @@ const styles = StyleSheet.create({
   dot: { width: scale(8), height: scale(8), borderRadius: scale(4), backgroundColor: '#B0E1DA', marginHorizontal: scale(4) },
   dotActive: { width: scale(8), height: scale(8), borderRadius: scale(4), backgroundColor: '#FFFFFF', marginHorizontal: scale(4) },
   logoStyleOne: { width: scale(80), height: scale(80), resizeMode: 'contain' },
+    overlayBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.44)',
+  }
 });

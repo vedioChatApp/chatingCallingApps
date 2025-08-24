@@ -7,6 +7,8 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 const HeaderScreen =  ({ onMenuPress }: { onMenuPress: () => void })=> {
   const navigation = useNavigation();
   return (
+    <View style={styles.container}>
+      <View style={styles.overlayBackground} >
      <View style={styles.headerContainer}>
           <View style={styles.leftSection}>
          <TouchableOpacity onPress={onMenuPress}>
@@ -24,18 +26,33 @@ const HeaderScreen =  ({ onMenuPress }: { onMenuPress: () => void })=> {
             <Image source={require('../assets/bell.png')} style={styles.bellIcon} />
           </TouchableOpacity>
         </View>
+        </View>
+                </View>
   )
 }
 
 export default HeaderScreen
 
 const styles = StyleSheet.create({
+  container:{
+flex: 0.15,
+           backgroundColor: '#1AC8B9',
+  },
+       overlayBackground: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255, 255, 255, 0.44)',
+},
    headerContainer: {
-      marginTop: scale(20),
+      marginTop: "12%",
       marginHorizontal: scale(20),
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      
     },
     leftSection: {
       flexDirection: 'row',

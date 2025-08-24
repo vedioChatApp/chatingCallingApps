@@ -117,6 +117,7 @@ const toggleHobby = async (item: Hobby) => {
   /* ──────────── UI ──────────── */
   return (
     <SafeAreaView style={styles.container}>
+            <View style={styles.overlayBackground}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {/* ── Header ── */}
         <View style={styles.topWrapper}>
@@ -133,7 +134,7 @@ const toggleHobby = async (item: Hobby) => {
 
         {/* ── Body ── */}
         <View style={styles.middleWrapper}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={Images.LeftArrow} style={styles.arrowIcon} />
           </TouchableOpacity>
 
@@ -228,6 +229,7 @@ const toggleHobby = async (item: Hobby) => {
                 <TouchableOpacity style={styles.circleButtonActive} onPress={() => navigation.navigate('InterestsScreen')}>
                     <Image source={Images.buttonRight} style={styles.logoStyleOne} />
                 </TouchableOpacity>
+            </View>
             </View>
     </SafeAreaView>
   );
@@ -350,4 +352,12 @@ const styles = StyleSheet.create({
             height: scale(80),
             resizeMode: 'contain',
         },
+         overlayBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.44)',
+  }
 });

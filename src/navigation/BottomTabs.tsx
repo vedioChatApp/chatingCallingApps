@@ -34,6 +34,7 @@ import UserPersonalDetails from '../screen/UserPersonalDetails';
 import UserAboutMeScreen from '../screen/UserAboutMeScreen';
 import UserTransactionHistory from '../screen/UserTransactionHistory';
 import UserTopUpScreen from '../screen/UserTopUpScreen';
+import UserMainChatScreen from '../screen/UserMainChatScreen';
 
 
 
@@ -68,12 +69,12 @@ export type HomeStackParamList = {
   UserProfileScreen: undefined;
   UserPersonalDetails: undefined;
   UserAboutMeScreen: undefined;
-   UserTopUpScreen:undefined;
-     SettingsScreen: undefined;
-       UserHelpScreen: undefined;
-         UserFAQScreen: undefined;
+  UserTopUpScreen: undefined;
+  SettingsScreen: undefined;
+  UserHelpScreen: undefined;
+  UserFAQScreen: undefined;
   UserReferandEarn: undefined;
-   UserContactSupportScreen: undefined;
+  UserContactSupportScreen: undefined;
   UserFeedbackandSuggessions: undefined;
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
@@ -88,12 +89,12 @@ export type CallStackParamList = {
   UserProfileScreen: undefined;
   UserPersonalDetails: undefined;
   UserAboutMeScreen: undefined;
-   UserTopUpScreen:undefined;
-     SettingsScreen: undefined;
-       UserHelpScreen: undefined;
-         UserFAQScreen: undefined;
+  UserTopUpScreen: undefined;
+  SettingsScreen: undefined;
+  UserHelpScreen: undefined;
+  UserFAQScreen: undefined;
   UserReferandEarn: undefined;
-   UserContactSupportScreen: undefined;
+  UserContactSupportScreen: undefined;
   UserFeedbackandSuggessions: undefined;
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
@@ -108,12 +109,12 @@ export type VideoCallStackParamList = {
   UserProfileScreen: undefined;
   UserPersonalDetails: undefined;
   UserAboutMeScreen: undefined;
-   UserTopUpScreen:undefined;
-     SettingsScreen: undefined;
-       UserHelpScreen: undefined;
-         UserFAQScreen: undefined;
+  UserTopUpScreen: undefined;
+  SettingsScreen: undefined;
+  UserHelpScreen: undefined;
+  UserFAQScreen: undefined;
   UserReferandEarn: undefined;
-   UserContactSupportScreen: undefined;
+  UserContactSupportScreen: undefined;
   UserFeedbackandSuggessions: undefined;
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
@@ -128,17 +129,18 @@ export type ChatStackParamList = {
   UserProfileScreen: undefined;
   UserPersonalDetails: undefined;
   UserAboutMeScreen: undefined;
-  UserTopUpScreen:undefined;
-    SettingsScreen: undefined;
-      UserHelpScreen: undefined;
-        UserFAQScreen: undefined;
+  UserTopUpScreen: undefined;
+  SettingsScreen: undefined;
+  UserHelpScreen: undefined;
+  UserFAQScreen: undefined;
   UserReferandEarn: undefined;
-   UserContactSupportScreen: undefined;
+  UserContactSupportScreen: undefined;
   UserFeedbackandSuggessions: undefined;
   UserPrivacyPolicyScreen: undefined;
   UserTermsandConditionsScreen: undefined;
   UserAppLanguageScreen: undefined;
   UserTransactionHistory: undefined;
+  UserMainChatScreen: undefined;
 };
 
 // -------------------- Navigators --------------------
@@ -204,16 +206,16 @@ const HomeStack = () => {
       <HomeStackNav.Screen name="UserPersonalDetails" component={UserPersonalDetails} />
       <HomeStackNav.Screen name="UserAboutMeScreen" component={UserAboutMeScreen} />
       <HomeStackNav.Screen name="UserTopUpScreen" component={UserTopUpScreen} />
-          <HomeStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
-                    <HomeStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
-                     <HomeStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
-                      <HomeStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
+      <HomeStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
+      <HomeStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
+      <HomeStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
+      <HomeStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
 
-                        <HomeStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
-                          <HomeStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
-                            <HomeStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
-                              <HomeStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
-                                <HomeStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <HomeStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
+      <HomeStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
+      <HomeStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
+      <HomeStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
+      <HomeStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
       <HomeStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
     </HomeStackNav.Navigator>
   );
@@ -229,16 +231,16 @@ const CallStack = () => {
       <CallStackNav.Screen name="UserPersonalDetails" component={UserPersonalDetails} />
       <CallStackNav.Screen name="UserAboutMeScreen" component={UserAboutMeScreen} />
       <CallStackNav.Screen name="UserTopUpScreen" component={UserTopUpScreen} />
-           <CallStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
-              <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
-                      <CallStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
-                              <CallStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
+      <CallStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
+      <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
+      <CallStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
+      <CallStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
 
-                               <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
-                                <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
-                                 <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
-                                  <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
-                                   <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
+      <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
+      <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
+      <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
+      <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
       <CallStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </CallStackNav.Navigator>
@@ -255,17 +257,17 @@ const VideoCallStack = () => {
       <VideoCallStackNav.Screen name="UserPersonalDetails" component={UserPersonalDetails} />
       <VideoCallStackNav.Screen name="UserAboutMeScreen" component={UserAboutMeScreen} />
       <VideoCallStackNav.Screen name="UserTopUpScreen" component={UserTopUpScreen} />
-       <VideoCallStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
-          <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
-           <VideoCallStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
-          <CallStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
+      <VideoCallStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
+      <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
+      <VideoCallStackNav.Screen name="UserFAQScreen" component={UserFAQScreen} />
+      <CallStackNav.Screen name="UserReferandEarn" component={UserReferandEarn} />
 
-            <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
-              <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
-                <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
-                  <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
-                    <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
-                    <CallStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
+      <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
+      <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
+      <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
+      <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
+      <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <CallStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </VideoCallStackNav.Navigator>
   );
@@ -276,18 +278,19 @@ const ChatStack = () => {
   return (
     <ChatStackNav.Navigator screenOptions={{ headerShown: false }}>
       <ChatStackNav.Screen name="ChatRoot" component={ChatScreen} />
+      <ChatStackNav.Screen name="UserMainChatScreen" component={UserMainChatScreen} />
       <ChatStackNav.Screen name="UserFollowingScreen" component={UserFollowingScreen} />
       <ChatStackNav.Screen name="UserProfileScreen" component={UserProfileScreen} />
       <ChatStackNav.Screen name="UserPersonalDetails" component={UserPersonalDetails} />
       <ChatStackNav.Screen name="UserAboutMeScreen" component={UserAboutMeScreen} />
       <ChatStackNav.Screen name="UserTopUpScreen" component={UserTopUpScreen} />
-          <ChatStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
-             <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
-              <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
-               <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
-                <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
-                 <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
-                  <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
+      <ChatStackNav.Screen name="SettingsScreen" component={SettingsScreen} />
+      <CallStackNav.Screen name="UserHelpScreen" component={UserHelpScreen} />
+      <CallStackNav.Screen name="UserContactSupportScreen" component={UserContactSupportScreen} />
+      <CallStackNav.Screen name="UserFeedbackandSuggessions" component={UserFeedbackandSuggessions} />
+      <CallStackNav.Screen name="UserPrivacyPolicyScreen" component={UserPrivacyPolicyScreen} />
+      <CallStackNav.Screen name="UserTermsandConditionsScreen" component={UserTermsandConditionsScreen} />
+      <CallStackNav.Screen name="UserAppLanguageScreen" component={UserAppLanguageScreen} />
       <ChatStackNav.Screen name="UserTransactionHistory" component={UserTransactionHistory} />
 
     </ChatStackNav.Navigator>
@@ -430,7 +433,7 @@ export default BottomTabs;
 const styles = StyleSheet.create({
   tabBarContainer: {
     position: 'absolute',
-    bottom:scale(0),
+    bottom: scale(0),
     width: '100%',
     height: Platform.OS === 'ios' ? scale(100) : scale(90),
     alignItems: 'center',

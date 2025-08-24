@@ -85,32 +85,32 @@ const ChatScreenCurveScreen = () => {
     </>
   );
 
-const renderDeleteModal = () => (
-  <Modal transparent visible={modalVisible} animationType="fade">
-    <View style={styles.modalBackdrop}>
-      <View style={styles.modalBox}>
-        <Image
-          source={require('../assets/deleteMessage.png')}
-          style={{ width: 60, height: 60, alignSelf: 'center' }}
-        />
-        <Text style={styles.modalTitle}>Delete message?</Text>
-        <Text style={styles.modalSubtitle}>
-          Do you really want to delete this conversation?
-        </Text>
-        <View style={styles.modalActions}>
-          <Pressable
-            onPress={() => setModalVisible(false)}
-            style={styles.cancelButton}>
-            <Text style={styles.cancelText}>Cancel</Text>
-          </Pressable>
-          <Pressable onPress={handleDelete} style={styles.deleteButtonModal}>
-            <Text style={styles.deleteText}>Delete</Text>
-          </Pressable>
+  const renderDeleteModal = () => (
+    <Modal transparent visible={modalVisible} animationType="fade">
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalBox}>
+          <Image
+            source={require('../assets/deleteMessage.png')}
+            style={{ width: 60, height: 60, alignSelf: 'center' }}
+          />
+          <Text style={styles.modalTitle}>Delete message?</Text>
+          <Text style={styles.modalSubtitle}>
+            Do you really want to delete this conversation?
+          </Text>
+          <View style={styles.modalActions}>
+            <Pressable
+              onPress={() => setModalVisible(false)}
+              style={styles.cancelButton}>
+              <Text style={styles.cancelText}>Cancel</Text>
+            </Pressable>
+            <Pressable onPress={handleDelete} style={styles.deleteButtonModal}>
+              <Text style={styles.deleteText}>Delete</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
-    </View>
-  </Modal>
-);
+    </Modal>
+  );
 
 
   return (
@@ -163,14 +163,18 @@ const renderItem = ({ item }: any) => (
 );
 
 const ChatScreen = () => {
-   const [isToggleOn, setIsToggleOn] = useState(false);
-            const [drawerVisible, setDrawerVisible] = useState(false);
-  return(
-  <SafeAreaView style={styles.container}>
-<HeaderScreen onMenuPress={() => setDrawerVisible(true)} />
-   <CustomDrawerModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
-    <ChatScreenCurveScreen />
-  </SafeAreaView>
+  const [isToggleOn, setIsToggleOn] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  return (
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.overlayBackground} >
+          <HeaderScreen onMenuPress={() => setDrawerVisible(true)} />
+          <CustomDrawerModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
+          <ChatScreenCurveScreen />
+        </View>
+      </SafeAreaView>
+    </>
   )
 };
 
@@ -183,11 +187,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1AC8B9',
   },
+  overlayBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.44)',
+  },
   bottomContainer: {
     flex: 1,
-    marginTop: scale(20),
+    // marginTop: scale(20),
     borderTopRightRadius: scale(50),
-    borderTopLeftRadius:scale(50),
+    borderTopLeftRadius: scale(50),
     backgroundColor: '#B2F3ED',
     paddingTop: scale(10),
     // alignItems: 'center',
@@ -197,16 +209,16 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
     fontWeight: '500',
     color: '#00604D',
-    marginLeft:scale(25),
-  marginTop:scale(10)
+    marginLeft: scale(25),
+    marginTop: scale(10)
   },
-  chatUserImageStyle:{
-      width: scale(50),
+  chatUserImageStyle: {
+    width: scale(50),
     height: scale(50),
-    borderRadius:scale(25),
+    borderRadius: scale(25),
     resizeMode: 'contain',
   },
-   profileWrapper: {
+  profileWrapper: {
     alignItems: 'center',
     marginRight: scale(14),
   },
@@ -223,7 +235,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: scale(52),
     height: scale(52),
-    borderRadius: scale(52/2),
+    borderRadius: scale(52 / 2),
     resizeMode: 'cover',
   },
   nameText: {
@@ -231,12 +243,12 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: scale(11),
   },
-  flatListHeader:{
-    width:"97%",
-    alignSelf:"center",
-    marginTop:scale(10)
+  flatListHeader: {
+    width: "97%",
+    alignSelf: "center",
+    marginTop: scale(10)
   },
-    searchContainer: {
+  searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#C5F2EB',
@@ -245,29 +257,29 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(20),
     marginTop: scale(14),
     height: scale(42),
-    borderWidth:1,
-    borderColor:"#FFFF"
+    borderWidth: 1,
+    borderColor: "#FFFF"
   },
   searchIcon: {
     width: scale(18),
     height: scale(18),
     marginRight: scale(10),
-    tintColor:'#00604D',
+    tintColor: '#00604D',
   },
   searchInput: {
     fontSize: scale(12),
     color: '#00604D',
-    fontWeight:"600"
+    fontWeight: "600"
   },
   chatList: {
     paddingTop: scale(10),
-  marginHorizontal:scale(25),
+    marginHorizontal: scale(25),
 
   },
   chatRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     marginTop: scale(20),
   },
   chatAvatar: {
@@ -275,8 +287,8 @@ const styles = StyleSheet.create({
     height: scale(48),
     borderRadius: scale(24),
     marginRight: scale(12),
-    borderColor:"#FFF",
-    borderWidth:2
+    borderColor: "#FFF",
+    borderWidth: 2
   },
   chatContent: {
     // flex: 1,
@@ -291,9 +303,9 @@ const styles = StyleSheet.create({
   },
   chatMessage: {
     fontSize: scale(12),
-  color: '#636363',
-    fontWeight:"600",
-    marginTop:scale(5)
+    color: '#636363',
+    fontWeight: "600",
+    marginTop: scale(5)
 
   },
   chatMeta: {
@@ -303,8 +315,8 @@ const styles = StyleSheet.create({
   chatTime: {
     fontSize: scale(10),
     color: '#636363',
-fontWeight:"600"
-    
+    fontWeight: "600"
+
 
   },
   tickIcon: {
@@ -314,111 +326,111 @@ fontWeight:"600"
     marginTop: scale(2),
   },
 
-  secationLine:{
-    width:"85%",
-    height:scale(1),
-    borderColor:"#FFF" ,
-    borderWidth:scale(1),
-    marginTop:scale(10),
-    alignSelf:"center"
+  secationLine: {
+    width: "85%",
+    height: scale(1),
+    borderColor: "#FFF",
+    borderWidth: scale(1),
+    marginTop: scale(10),
+    alignSelf: "center"
   },
-swipeActionContainer: {
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginVertical: scale(10),
-  marginRight: scale(10),
-},
+  swipeActionContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: scale(10),
+    marginRight: scale(10),
+  },
 
-deleteActionButton: {
-  borderRadius: scale(24),
-},
+  deleteActionButton: {
+    borderRadius: scale(24),
+  },
 
-deleteIcon: {
-  width: scale(20),
-  height: scale(20),
-  tintColor: 'red',
-},
+  deleteIcon: {
+    width: scale(20),
+    height: scale(20),
+    tintColor: 'red',
+  },
 
 
-modalOverlay: {
-  flex: 1,
-  backgroundColor: 'rgba(0, 0, 0, 0.45)', // slightly more blur-like dark bg
-  justifyContent: 'center',
-  alignItems: 'center',
-},
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)', // slightly more blur-like dark bg
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-modalBox: {
-  width: scale(328),
-  height: scale(272),
-  backgroundColor: 'rgba(255, 255, 255, 0.83)',
-  borderRadius: scale(40),
-  padding: scale(20),
-  borderWidth: scale(2.5),
-  borderColor: '#FFFFFF',
-  alignItems: 'center',
-  shadowColor: '#000',
-  shadowOpacity: 0.1,
-  shadowRadius: 20,
-  elevation: 10,
-},
+  modalBox: {
+    width: scale(328),
+    height: scale(272),
+    backgroundColor: 'rgba(255, 255, 255, 0.83)',
+    borderRadius: scale(40),
+    padding: scale(20),
+    borderWidth: scale(2.5),
+    borderColor: '#FFFFFF',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
+  },
 
-modalTitle: {
-  fontSize: scale(18),
-  fontWeight: '700',
-  marginTop: scale(16),
-  color: '#00604D',
-},
+  modalTitle: {
+    fontSize: scale(18),
+    fontWeight: '700',
+    marginTop: scale(16),
+    color: '#00604D',
+  },
 
-modalSubtitle: {
-  fontSize: scale(14),
-  color: '#019175',
-  textAlign: 'center',
-  marginTop: scale(15),
-  fontWeight: '600',
-},
+  modalSubtitle: {
+    fontSize: scale(14),
+    color: '#019175',
+    textAlign: 'center',
+    marginTop: scale(15),
+    fontWeight: '600',
+  },
 
-modalActions: {
-  flexDirection: 'row',
-  marginTop: scale(30),
-  width: '100%',
-  justifyContent: 'space-between',
-},
+  modalActions: {
+    flexDirection: 'row',
+    marginTop: scale(30),
+    width: '100%',
+    justifyContent: 'space-between',
+  },
 
-cancelButton: {
-        alignItems: 'center',
-        width:"47%",
-        height:scale(44),
-        backgroundColor:"#FFFF",
-        justifyContent:"center",
-        borderRadius:scale(16)
-      },
-      
-      deleteButtonModal: {
-        backgroundColor: '#E52030',
-       alignItems: 'center',
-        width:"47%",
-        height:scale(44),
-        justifyContent:"center",
-        borderRadius:scale(16)
-      },
-      
-      cancelText: {
-        color: '#010101',
-        fontWeight: '700',
-        fontSize: scale(16),
-      },
-      
-      deleteText: {
-        color: '#fff',
-     fontWeight: '700',
-        fontSize: scale(16),
-      },
-modalBackdrop: {
-  flex: 1,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',  // creates dark blur-like effect
-  justifyContent: 'center',
-  alignItems: 'center',
-},
+  cancelButton: {
+    alignItems: 'center',
+    width: "47%",
+    height: scale(44),
+    backgroundColor: "#FFFF",
+    justifyContent: "center",
+    borderRadius: scale(16)
+  },
+
+  deleteButtonModal: {
+    backgroundColor: '#E52030',
+    alignItems: 'center',
+    width: "47%",
+    height: scale(44),
+    justifyContent: "center",
+    borderRadius: scale(16)
+  },
+
+  cancelText: {
+    color: '#010101',
+    fontWeight: '700',
+    fontSize: scale(16),
+  },
+
+  deleteText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: scale(16),
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',  // creates dark blur-like effect
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
 
 })

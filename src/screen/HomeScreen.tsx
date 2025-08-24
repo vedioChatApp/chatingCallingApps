@@ -161,11 +161,11 @@ const HomeScreen: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
-       <View style={styles.overlayBackground}>
-      <HeaderScreen onMenuPress={() => setDrawerVisible(true)} />
-      <CustomDrawerModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
-
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.overlayBackground}>
+          <HeaderScreen onMenuPress={() => setDrawerVisible(true)} />
+          <CustomDrawerModal visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
       {/* pass toggle state down */}
       <HomeCurveScreen showChats={isToggleOn} />
 
@@ -188,6 +188,7 @@ const HomeScreen: React.FC = () => {
       </TouchableOpacity>
       </View>
     </SafeAreaView>
+    </>
   );
 };
 
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   // back to original (no centering) so FlatList stays left-aligned
   bottomContainer: {
     flex: 1,
-    marginTop: scale(20),
+    // marginTop: scale(20),
     borderTopRightRadius: scale(40),
     borderTopLeftRadius: scale(40),
     backgroundColor: '#B2F3ED',
@@ -253,13 +254,13 @@ const styles = StyleSheet.create({
   // ✅ Pin to the screen's right edge so it never shifts
   fixedToggle: {
     position: 'absolute',
-    top: '40%',
+    top: '30%',
     right: scale(-5),         // <-- use right pin
     zIndex: 9999,
   },
     fixedToggleClick: {
     position: 'absolute',
-    top: '36%',
+    top: '25%',
     right: scale(-25),         // <-- use right pin
     zIndex: 9999,
   },

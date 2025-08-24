@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     paddingTop: scale(16),
     paddingBottom: scale(6),
-marginTop: "25%",
+marginTop: "32%",
   },
   codeBox: {
     flex: 1,

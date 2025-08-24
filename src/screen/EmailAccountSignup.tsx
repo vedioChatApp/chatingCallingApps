@@ -183,9 +183,11 @@ const SignupFields = ({
               data={genderOptions}
               keyExtractor={(_, i) => i.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity style={styles.dropdownItem} onPress={() => selectGender(item)}>
-                  <Text style={styles.dropdownItemText}>{item}</Text>
-                </TouchableOpacity>
+                // <View style={styles.overlayBackground}>
+                  <TouchableOpacity style={styles.dropdownItem} onPress={() => selectGender(item)}>
+                    <Text style={styles.dropdownItemText}>{item}</Text>
+                  </TouchableOpacity>
+                // </View>
               )}
             />
           </View>
@@ -363,11 +365,16 @@ const styles = StyleSheet.create({
   dropDownStyle: { width: scale(15), height: scale(15), resizeMode: 'contain' },
   dropdownContainer: {
     position: 'absolute', backgroundColor: '#1AC8B9', borderWidth: 1, borderColor: '#ddd',
-    borderRadius: scale(10), top: scale(-120), left: scale(40), right: scale(40),
+    width: '100%',
+    borderRadius: scale(10), top: scale(-120), 
+    marginHorizontal: scale(40),
     elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2, shadowRadius: 1.41, zIndex: 999
+    shadowOpacity: 0.2, shadowRadius: 1.41, zIndex: 999,
+    alignSelf:"center"
   },
-  dropdownItem: { paddingVertical: scale(10), paddingHorizontal: scale(15), borderBottomColor: '#eee', borderBottomWidth: 1 },
+  dropdownItem: { paddingVertical: scale(10), paddingHorizontal: scale(15), borderBottomColor: '#eee', borderBottomWidth: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.44)',
+   },
   dropdownItemText: { fontSize: scale(15), color: '#3F897B' },
 
   wrapper: { alignItems: 'center', justifyContent: 'center', marginHorizontal: scale(40) },
