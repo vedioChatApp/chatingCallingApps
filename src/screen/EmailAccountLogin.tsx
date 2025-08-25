@@ -112,9 +112,9 @@ const handleLogin = async () => {
 
       <TouchableOpacity
         style={styles.buttonHeader}
-        // onPress={handleLogin}
-        // disabled={loading}
-        onPress={()=>navigation.navigate('Main', { screen: 'Home' })}
+        onPress={handleLogin}
+        disabled={loading}
+        // onPress={()=>navigation.navigate('Main', { screen: 'Home' })}
       >
         {loading ? (
           <ActivityIndicator color="#fff" />
